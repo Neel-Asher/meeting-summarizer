@@ -4,7 +4,6 @@ import dotenv
 import os
 import datetime
 
-# Load environment variables from .env file
 dotenv.load_dotenv()
 
 print("=== MEETING SUMMARIZER ===")
@@ -18,7 +17,7 @@ model = whisper.load_model('base')
 print('Loaded Whisper model:', type(model))
 
 # Transcribe audio file
-audio_file = "test_audio(1).m4a"
+audio_file = "sample-meeting.mp3"
 print(f"Transcribing audio file: {audio_file}")
 transcript_result = model.transcribe(audio_file, fp16=False)
 transcript_text = transcript_result['text']

@@ -8,24 +8,21 @@ import tempfile
 import io
 import subprocess
 
-# Load environment variables
 dotenv.load_dotenv()
 
-# Sanity check: make sure FFmpeg is available
 try:
     subprocess.run(['ffmpeg', '-version'], capture_output=True, check=True)
     print("✅ FFmpeg is available")
 except Exception as e:
     raise RuntimeError(f"FFmpeg is not found or not working: {e}")
 
-# Configure page
+
 st.set_page_config(
     page_title="Meeting Summarizer",
     page_icon="🎙️",
     layout="wide"
 )
 
-# Initialize session state
 if 'transcript' not in st.session_state:
     st.session_state.transcript = ""
 if 'summary' not in st.session_state:
@@ -74,7 +71,6 @@ def transcribe_audio(audio_file):
         if os.path.getsize(tmp_file_path) == 0:
             raise ValueError("Temporary file is empty")
         
-        # Validate audio file with FFmpeg
         try:
             subprocess.run([
                 'ffmpeg', '-v', 'quiet', '-i', tmp_file_path, '-f', 'null', '-'
@@ -139,7 +135,6 @@ AI-GENERATED SUMMARY:
 """
     return output
 
-# Main UI
 st.title("🎙️ Meeting Summarizer Dashboard")
 st.markdown("Upload an audio file to get an AI-generated transcript and summary")
 
